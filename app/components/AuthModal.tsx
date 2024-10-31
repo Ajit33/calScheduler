@@ -1,9 +1,11 @@
+
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import { DialogContent } from "@radix-ui/react-dialog";
+import { Dialog, DialogHeader, DialogTrigger,DialogContent, DialogTitle  } from "@/components/ui/dialog";
 import Logo from "@/public/logo (1).png"
 import Image from "next/image";
-
+import { signIn } from "../lib/auth";
+import {FcGoogle} from "react-icons/fc"
+import { FaGithub } from "react-icons/fa"
 
 
 export function AuthModal(){
@@ -13,10 +15,21 @@ export function AuthModal(){
             <Button>Try for free</Button>
             </DialogTrigger> 
             <DialogContent className="sm:max-w-[360px]">
-              <DialogHeader>
+              <DialogHeader className="flex flex-row justify-center items-center gap-2">
                 <Image  src={Logo} alt="logo" className="size-10" />
-                <h4 className="text-3xl font-semibold">Cal<span className="text-blue-500">Scheduler</span></h4>
+                <h4 className="text-3xl font-semibold">Cal<span className="text-orange-500">Scheduler</span></h4>
               </DialogHeader>
+              <div className="gap-3 mt-5  flex flex-col">
+                <form className="w-full" action={async()=>{
+                  "use server"
+                  await signIn("google")
+                }} >
+              <Button  className="w-full"><FcGoogle/> Sign in with Google</Button>
+              </form>
+              <form className="w-full">
+              <Button className="w-full"> <FaGithub /> Sign in with Github</Button>
+              </form>
+              </div>
             </DialogContent>
         </Dialog>
     )
