@@ -6,6 +6,7 @@ import Image from "next/image";
 import { signIn } from "../lib/auth";
 import {FcGoogle} from "react-icons/fc"
 import { FaGithub } from "react-icons/fa"
+import { GithubAuthButton, GoogleAuthButton } from "./SubmitButton";
 
 
 export function AuthModal(){
@@ -24,10 +25,13 @@ export function AuthModal(){
                   "use server"
                   await signIn("google")
                 }} >
-              <Button  className="w-full"><FcGoogle/> Sign in with Google</Button>
+               <GoogleAuthButton />
               </form>
-              <form className="w-full">
-              <Button className="w-full"> <FaGithub /> Sign in with Github</Button>
+              <form className="w-full" action={async ()=>{
+                "use server"
+                await signIn("github")
+              }}>
+              <GithubAuthButton />
               </form>
               </div>
             </DialogContent>
