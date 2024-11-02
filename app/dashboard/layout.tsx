@@ -1,16 +1,20 @@
-"use client"
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import Logo from "@/public/logo (1).png"
 import { DashboardLinks } from "../components/DashboardLinks";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { ThemeToggle } from "../components/ThemeToggle";
+import { DropdownMenu, DropdownMenuItem,DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuSubContent } from "@/components/ui/dropdown-menu";
 
-export default function DashboardLayoyt({children}:{children:ReactNode}){
+import { auth, signOut } from "../lib/auth";
+import { requireUser } from "../lib/hooks";
+
+export default  async function DashboardLayoyt({children}:{children:ReactNode}){
+  const session=await requireUser()
     return(
         <>
         <div className="min-h-screen w-full grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -45,7 +49,31 @@ export default function DashboardLayoyt({children}:{children:ReactNode}){
                       </nav>
                     </SheetContent>
                    </Sheet>
+                   <div className="ml-auto flex items-center gap-4">
+                       <ThemeToggle />
+                       <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                              <Button variant="secondary" size="icon" className="rounded-full">
+                           <img src={session?.user?.image as string} alt="prifile picture" width={20} height={20} className="w-full h-full rounded-full" />
+                              </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem asChild><Link href="/dashboard/settings">Setting</Link></DropdownMenuItem>
+                              <DropdownMenuItem asChild><form className="w-full" action={async()=>{
+                                "use server"
+                                await signOut();
+                              }}>
+                                <button className="w-full text-left">Logout</button>
+                                </form></DropdownMenuItem>
+                              </DropdownMenuContent>
+                       </DropdownMenu>
+                   </div>
                  </header>
+                 <main className="flex flex-1 flex-col gap-4 p-4 lg:pgap-6 lg:p-6 ">
+                  {children}
+                 </main>
               </div>
         </div>
         </>
