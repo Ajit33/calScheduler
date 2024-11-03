@@ -4,6 +4,7 @@ import prisma from "../lib/db"
 import { requireUser } from "../lib/hooks"
 import{parseWithZod} from "@conform-to/zod"
 import { onboardingSchema, onboardingSchemaLocale } from "../lib/zodSchema"
+import { redirect } from "next/navigation"
 
 
 
@@ -34,4 +35,5 @@ export async function onBoardingAction(prevState:any,formData:FormData){
             name:submission.value.fullName
         }
     })
+    return redirect("/dashboard")
 }

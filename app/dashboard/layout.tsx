@@ -12,9 +12,29 @@ import { DropdownMenu, DropdownMenuItem,DropdownMenuContent, DropdownMenuLabel, 
 
 import { auth, signOut } from "../lib/auth";
 import { requireUser } from "../lib/hooks";
+import prisma from "../lib/db";
+import { redirect } from "next/navigation";
+
+
+async function getData(userId:string){
+  const data=await prisma.user.findUnique({
+    where:{
+      id:userId,
+    },
+    select:{
+      username:true,
+    }
+  })
+  if(!data?.username){
+    return  redirect("/onboarding")
+  }
+  return data
+}
+
 
 export default  async function DashboardLayoyt({children}:{children:ReactNode}){
-  const session=await requireUser()
+  const session=await requireUser();
+  const data=await getData(session?.user?.id as string)
     return(
         <>
         <div className="min-h-screen w-full grid md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
