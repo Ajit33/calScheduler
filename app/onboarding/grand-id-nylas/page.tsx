@@ -16,7 +16,7 @@ export default function nylasOnBorading(){
                 </CardHeader> 
                 <CardContent>
                     <Button asChild>
-                        <Link href="" className="w-full">
+                        <Link href="/api/auth" className="w-full">
                         <CalendarCheck2 className="size-4 mr-2" />
                         Connect Calendar to calScheduler
                         </Link>
