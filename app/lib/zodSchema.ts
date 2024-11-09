@@ -53,3 +53,10 @@ export function onboardingSchema(options?: {
       }),
     fullName: z.string().min(3).max(150),
   });
+
+
+
+  export const settingSchema=z.object({
+    name:z.string().min(3).max(150),
+    image:z.string()
+  })

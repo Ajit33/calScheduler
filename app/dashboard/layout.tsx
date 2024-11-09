@@ -23,10 +23,14 @@ async function getData(userId:string){
     },
     select:{
       username:true,
+      grantId:true
     }
   })
   if(!data?.username){
     return  redirect("/onboarding")
+  }
+  if(!data.grantId){
+    return redirect("/onboarding/grand-id-nylas")
   }
   return data
 }
@@ -34,6 +38,7 @@ async function getData(userId:string){
 
 export default  async function DashboardLayoyt({children}:{children:ReactNode}){
   const session=await requireUser();
+  console.log(session.user?.image)
   const data=await getData(session?.user?.id as string)
     return(
         <>
