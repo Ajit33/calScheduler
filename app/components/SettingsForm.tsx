@@ -19,6 +19,8 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { UploadDropzone } from "../lib/uploadthing";
+import { toast } from "sonner";
 
 interface userdataProps {
   name: string;
@@ -74,6 +76,7 @@ export function SettingsForm({ name, email, image }: userdataProps) {
 
           <div className="grid gap-5">
             <Label>Profile Image</Label>
+            <input type="hidden" name={fields.image.name} key={fields.image.key} value={currentProfileImage} />
          {currentProfileImage ?(
             <div className=" relative size-16">
            <img src={currentProfileImage} alt="profile" className="size-16 rounded-lg" /> 
@@ -82,8 +85,17 @@ export function SettingsForm({ name, email, image }: userdataProps) {
            </Button>
            </div>
          ):(
-            <h1>no image</h1>
+           <UploadDropzone onClientUploadComplete={(res)=>{
+            setCurrentProfileImage(res[0].url);
+            toast.success("profile image uploaded sucessfully !")
+           }}
+           onUploadError={(error)=>{
+             console.log("somthing went wrong while uploading",error)
+             toast.error(error.message)
+           }}
+           endpoint="imageUploader" />
          )}
+         <p className="text-red-400 text-sm">{fields.image.errors}</p>
           </div>
         </CardContent>
         <CardFooter>

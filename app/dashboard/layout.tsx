@@ -14,6 +14,7 @@ import { auth, signOut } from "../lib/auth";
 import { requireUser } from "../lib/hooks";
 import prisma from "../lib/db";
 import { redirect } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
 
 
 async function getData(userId:string){
@@ -101,6 +102,7 @@ export default  async function DashboardLayoyt({children}:{children:ReactNode}){
                  </main>
               </div>
         </div>
+        <Toaster richColors closeButton />
         </>
     )
 }
