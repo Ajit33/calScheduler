@@ -30,7 +30,7 @@ export const DashboardLinkContent:DashboardLinksProps[]=[
     {
         id:2,
         name:"Availability",
-        href:"/dahboard/availability",
+        href:"/dashboard/availability",
         icon:CalendarCheck
     },
     {
