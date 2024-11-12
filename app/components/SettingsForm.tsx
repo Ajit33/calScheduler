@@ -15,7 +15,7 @@ import { settingAction } from "../action/action";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { settingSchema } from "../lib/zodSchema";
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -29,7 +29,7 @@ interface userdataProps {
 }
 
 export function SettingsForm({ name, email, image }: userdataProps) {
-  const [lastResult, action] = useFormState(settingAction, undefined);
+  const [lastResult, action] = useActionState(settingAction, undefined);
   const [currentProfileImage,setCurrentProfileImage]=useState(image)
   const [form, fields] = useForm({
     lastResult,

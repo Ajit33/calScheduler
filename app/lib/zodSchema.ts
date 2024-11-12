@@ -60,3 +60,11 @@ export function onboardingSchema(options?: {
     name:z.string().min(3).max(150),
     image:z.string()
   })
+
+  export const EventTypeSchema=z.object({
+    title:z.string().min(3).max(150),
+    duration:z.number().min(15).max(60),
+    url:z.string().min(3).max(150),
+    description:z.string().min(3).max(200),
+    vedioCallSoftware:z.string()
+  })
