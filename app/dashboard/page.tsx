@@ -5,7 +5,7 @@ import prisma from "../lib/db";
 import { EmptyState } from "../components/EmptyState";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Settings, User2 } from "lucide-react";
+import { ExternalLink, Link2, Pen, Settings, Trash, User2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import {DropdownMenuLabel, DropdownMenu,DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
@@ -78,6 +78,19 @@ export default async function DashboardPage() {
                                 <ExternalLink className="mr-2 size-4" />
                                 Preview</Link>
                             </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Link2 className="mr-2 size-4" />
+                                Copy
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <Pen className="mr-2 size-4" />
+                               Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <Trash className="size-4 mr-2" />
+                                Delete
+                            </DropdownMenuItem>
                         </DropdownMenuGroup>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -96,7 +109,7 @@ export default async function DashboardPage() {
                 </div>
 
                 </Link>
-                <div className="bg-foreground px-5 py-3 justify-between items-center flex">
+                <div className="bg-gray-300 px-5 py-3 justify-between items-center flex">
                    <Switch />
                    <Button>
                      Edit Event
