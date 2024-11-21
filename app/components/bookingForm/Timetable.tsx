@@ -88,7 +88,7 @@ function calucalteAvailableTimeSlots(
   );
   const availableFrom = addMinutes(availableFromUtz, 330);
   const availableTill = addMinutes(availableTillUtz, 330);
-  console.log("availabaleFrom", availableFrom);
+
   //@ts-ignore
   const busySlots = nylasData.data[0].timeSlots.map((slot) => ({
     start: fromUnixTime(slot.startTime),
@@ -97,12 +97,12 @@ function calucalteAvailableTimeSlots(
 
   const allSlots = [];
   let currentSlot = availableFrom;
-  console.log("currentslots", currentSlot);
+
   while (isBefore(currentSlot, availableTill)) {
     allSlots.push(currentSlot);
     currentSlot = addMinutes(currentSlot, duration);
   }
-  console.log("allslots", allSlots);
+
   const freeSlots = allSlots.filter((slot) => {
     const slotEnd = addMinutes(slot, duration);
 
@@ -116,7 +116,7 @@ function calucalteAvailableTimeSlots(
       )
     );
   });
-  console.log("free slots", freeSlots);
+
   return freeSlots.map((slot) => format(slot, "HH:mm"));
 }
 
@@ -132,14 +132,14 @@ export async function TimeTable({
     fromTime: data?.fromTime,
     tillTime: data?.tillTime,
   };
-  console.log("dbavail", dbAvailablity);
+
   const availableSlots = calucalteAvailableTimeSlots(
     formattedDate,
     dbAvailablity,
     nylasCalendarData,
     duration
   );
-  console.log("avaslot", availableSlots);
+
   return (
     <div>
       <p className="text-base font-semibold">
