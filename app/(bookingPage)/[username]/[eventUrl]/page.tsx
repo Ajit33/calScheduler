@@ -1,5 +1,6 @@
 import { Calendar } from "@/app/components/bookingForm/Calendar";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
+import { TimeTable } from "@/app/components/bookingForm/Timetable";
 import prisma from "@/app/lib/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -51,7 +52,8 @@ export default async function BookingFormRoute({
   const username=(await params).username
   const eventUrl=(await params).eventUrl
   const data = await getData(eventUrl, username);
-  const selectedDate= searchParams.date? new Date(searchParams.date):new Date()
+  const date=(await searchParams).date
+  const selectedDate= date? new Date(date):new Date()
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: 'long',
@@ -106,6 +108,7 @@ export default async function BookingFormRoute({
             orientation="vertical"
             className="h-full w-[1px] bg-orange-700"
           /> 
+          <TimeTable  selectedDate={selectedDate} userName={username} duration={data.duration}/>
         </CardContent>
       </Card>
     </div>
