@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, Link2, Pen, Settings, Trash, User2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import {DropdownMenuLabel, DropdownMenu,DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { CopyLinkMenuItem } from "../components/CopyLinkMenu";
 
 
 
@@ -78,13 +79,11 @@ export default async function DashboardPage() {
                                 <ExternalLink className="mr-2 size-4" />
                                 Preview</Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Link2 className="mr-2 size-4" />
-                                Copy
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <CopyLinkMenuItem meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.username}/${item.url}`} />
+                            <DropdownMenuItem asChild>
+                                <Link href={`/dashboard/event/${item.id}`}>
                                 <Pen className="mr-2 size-4" />
-                               Edit
+                               Edit</Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>

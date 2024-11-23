@@ -196,5 +196,36 @@ export async function CreateMeetingACtion(formData:FormData){
       notifyParticipants:true
     }
    })
-   return redirect("/sucess")
+   return redirect("/success")
+}
+
+
+export async function cancelMeetingAction(formData:FormData){
+  const session=await requireUser()
+  const userData=await prisma.user.findUnique({
+    where:{
+      id:session.user?.id
+    },
+    select:{
+      grantEmail:true,
+      grantId:true
+    }
+  });
+
+  if(!userData){
+    throw new Error("user not found !")
+  }
+  const data=await nylas.events.destroy({
+    eventId:formData.get("eventId") as string,
+    identifier:userData.grantId as string,
+    queryParams:{
+      calendarId:userData.grantEmail as string
+    }
+  })
+  revalidatePath("/dashboard/meetings")
+}
+
+
+export async function EditEventAction(){
+  const session=await requireUser()
 }

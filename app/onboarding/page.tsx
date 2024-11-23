@@ -10,8 +10,9 @@ import {useForm} from "@conform-to/react"
 import { parseWithZod } from "@conform-to/zod";
 import { onboardingSchemaLocale } from "../lib/zodSchema";
 import { GeneralSubmitButton } from "../components/SubmitButton";
+import { useActionState } from "react";
 export default function OnboardingRoute(){
-  const[lastResult,action]=useFormState(onBoardingAction,undefined)
+  const[lastResult,action]=useActionState(onBoardingAction,undefined)
 
   const [form,fields]=useForm({
     lastResult,
