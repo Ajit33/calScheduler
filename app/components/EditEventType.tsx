@@ -1,6 +1,6 @@
 "use client";
 
-import { CraeteEventTypeAction } from "@/app/action/action";
+import { CraeteEventTypeAction, EditEventAction } from "@/app/action/action";
 import { EventTypeSchema } from "@/app/lib/zodSchema";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/ButtonGroup";
@@ -44,7 +44,7 @@ export function EditEventTypeForm({id,title,url,description,duration,callprovide
   const [mounted, setMounted] = useState(false);
   const [activePlatform, setActivePlatform] =
     useState<VideoCallProvider>(callprovider as VideoCallProvider);
-  const [lastResult, action] = useActionState(CraeteEventTypeAction, undefined);
+  const [lastResult, action] = useActionState(EditEventAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -74,6 +74,7 @@ export function EditEventTypeForm({id,title,url,description,duration,callprovide
           </CardDescription>
         </CardHeader>
         <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
+          <input type="hidden" name="id" value={id} />
           <CardContent className="grid gap-y-5">
             <div className="flex flex-col gap-y-2">
               <Label>Title</Label>

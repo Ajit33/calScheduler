@@ -226,6 +226,26 @@ export async function cancelMeetingAction(formData:FormData){
 }
 
 
-export async function EditEventAction(){
+export async function EditEventAction( prevState:any,formData:FormData){
   const session=await requireUser()
+  const submission= parseWithZod(formData,{
+    schema:EventTypeSchema,
+  });
+  if(submission.status!=="success"){
+    return submission.reply()
+  }
+  const data=await prisma.eventType.update({
+    where:{
+      id:formData.get("id") as string,
+    userId:session.user?.id
+    },
+    data:{
+      title:submission.value.title,
+      duration:submission.value.duration,
+      url:submission.value.url,
+      description:submission.value.description,
+      vedioCallSoftware:submission.value.vedioCallSoftware
+    }
+  })
+  return redirect("/dashboard")
 }
