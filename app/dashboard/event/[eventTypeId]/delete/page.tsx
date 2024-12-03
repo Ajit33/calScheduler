@@ -11,10 +11,10 @@ import {
 import Link from "next/link";
 
 export default async function DeleteEventType({params}:{
-    params:{eventTypeId:string}
+    params:Promise<{eventTypeId:string}>
 }) {
-
-    if (!params.eventTypeId) {
+  const eventTypeId= (await params).eventTypeId
+    if (!eventTypeId) {
         return <div>Error: Event Type ID is missing.</div>;
       }
   return (
@@ -29,7 +29,7 @@ export default async function DeleteEventType({params}:{
             <Link href="/dashboard">Cancel</Link>
           </Button>
           <form action={DeleteEventTypeAction}>
-            <input type="hidden" name="id" value={ params.eventTypeId} />
+            <input type="hidden" name="id" value={ eventTypeId} />
            <GeneralSubmitButton text="Delete" variant="destructive"/>
           </form>
         </CardFooter>

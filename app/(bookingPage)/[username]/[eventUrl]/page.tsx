@@ -1,4 +1,5 @@
 import { CreateMeetingACtion } from "@/app/action/action";
+import { Calendar } from "@/app/components/bookingForm/Calendar";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
 import { TimeTable } from "@/app/components/bookingForm/Timetable";
 import { GeneralSubmitButton } from "@/app/components/SubmitButton";
@@ -49,13 +50,15 @@ export default async function BookingFormRoute({
   params,
   searchParams,
 }: {
-  params: Promise<{ username: string; eventUrl: string }>;
-  searchParams:{date?:string; time?:string}
+  params:Promise< { username: string; eventUrl: string }>;
+  searchParams:Promise<{date?:string; time?:string}>
 }) {
-  const username=(await params).username
-  const eventUrl=(await params).eventUrl
+
+  const {username}=await params
+  const {eventUrl}=await params
   const data = await getData(eventUrl, username);
-  const date=(await searchParams).date
+  const {date}=await searchParams
+  const {time}=await searchParams
   const selectedDate= date? new Date(date):new Date()
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
@@ -64,7 +67,7 @@ export default async function BookingFormRoute({
     month: 'long'
   }).format(selectedDate);
 
-  const showForm= !!searchParams.date && !!searchParams.time;
+  const showForm= !!date && !!time;
   
   return (
     <div className="min-h-screen w-screen flex items-center justify-center">
@@ -110,11 +113,11 @@ export default async function BookingFormRoute({
           className="h-full w-[1px] bg-orange-700"
         />
         <form className="flex flex-col gap-y-4" action={CreateMeetingACtion}>
-          <input type="hidden" name="fromTime" value={searchParams.time} />
-          <input type="hidden" name="eventDate" value={searchParams.date} />
+          <input type="hidden" name="fromTime" value={time} />
+          <input type="hidden" name="eventDate" value={date} />
           <input type="hidden" name="meetingDuration" value={data.duration} />
           <input type="hidden" name="provider" value={data.vedioCallSoftware} />
-          <input type="hidden" name="username" value={(await params).username} />
+          <input type="hidden" name="username" value={username} />
           <input type="hidden" name="eventTypeId" value={data.id} />
           <div className="flex flex-col gap-y-2">
             <Label>Your Name</Label>
