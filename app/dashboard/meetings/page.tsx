@@ -52,7 +52,7 @@ export default async function MeetingsRoute(){
             </CardHeader>
             <CardContent>
                 {meetings.data.map((items)=>(
-                 <form action={cancelMeetingAction}>
+                 <form action={cancelMeetingAction} key={items.id}>
                     <input type="hidden" name="eventId" value={items.id} />
                       <div className="grid grid-cols-3 justify-between items-center ">
                         <div >

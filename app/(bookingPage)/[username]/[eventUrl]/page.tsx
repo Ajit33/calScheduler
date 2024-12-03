@@ -1,5 +1,4 @@
 import { CreateMeetingACtion } from "@/app/action/action";
-import { Calendar } from "@/app/components/bookingForm/Calendar";
 import { RenderCalendar } from "@/app/components/bookingForm/RenderCalendar";
 import { TimeTable } from "@/app/components/bookingForm/Timetable";
 import { GeneralSubmitButton } from "@/app/components/SubmitButton";

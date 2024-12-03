@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/public/logo (1).png"
 import { AuthModal } from "./AuthModal";
+import { ThemeToggle } from "./ThemeToggle";
 
 
 export function Navbar(){
@@ -11,7 +12,10 @@ export function Navbar(){
         <Image  src={Logo} alt="logo" className="size-10" />
         <h4 className="text-3xl font-semibold">Cal<span className="text-orange-500">Scheduler</span></h4>
         </Link>
+        <div className="hidden md:flex md:justify-end md:space-x-4">
+            <ThemeToggle />
         <AuthModal />
+        </div>
     </div>
     )
 }

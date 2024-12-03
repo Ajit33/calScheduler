@@ -6,7 +6,6 @@ import { parseWithZod } from "@conform-to/zod";
 import {
   EventTypeSchema,
   onboardingSchema,
-  onboardingSchemaLocale,
   settingSchema,
 } from "../lib/zodSchema";
 import { redirect } from "next/navigation";
@@ -245,6 +244,46 @@ export async function EditEventAction( prevState:any,formData:FormData){
       url:submission.value.url,
       description:submission.value.description,
       vedioCallSoftware:submission.value.vedioCallSoftware
+    }
+  })
+  return redirect("/dashboard")
+}
+
+
+export async function UpdateEventTypeStatusAction(prevState:any,{eventTypeId,isChecked}:{
+  eventTypeId:string,
+  isChecked:boolean
+}){
+  try {
+    const session=await requireUser()
+  const data=await prisma.eventType.update({
+    where:{
+      id:eventTypeId,
+      userId:session.user?.id
+    },
+    data:{
+      active:isChecked
+    }
+  });
+revalidatePath("/dashboard")
+  return {
+    status:'sucess',
+    message:"eventTypeStatus is updated !"
+  }
+  } catch (error) {
+    return {
+      status:'error',
+      message:"somthing went wrong !"
+    }
+  }
+}
+
+export async function DeleteEventTypeAction(formData:FormData){
+  const session=await requireUser()
+  const data=await prisma.eventType.delete({
+    where:{
+      id:formData.get("id") as string,
+      userId:session.user?.id
     }
   })
   return redirect("/dashboard")

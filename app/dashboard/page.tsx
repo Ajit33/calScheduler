@@ -9,6 +9,7 @@ import { ExternalLink, Link2, Pen, Settings, Trash, User2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import {DropdownMenuLabel, DropdownMenu,DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { CopyLinkMenuItem } from "../components/CopyLinkMenu";
+import { MenuActiveSwitcher } from "../components/EventTypeSwitcher";
 
 
 
@@ -86,9 +87,11 @@ export default async function DashboardPage() {
                                Edit</Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                                <Link href={`/dashboard/event/${item.id}/delete`}>
                                 <Trash className="size-4 mr-2" />
                                 Delete
+                                </Link>
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                     </DropdownMenuContent>
@@ -109,9 +112,9 @@ export default async function DashboardPage() {
 
                 </Link>
                 <div className="bg-gray-300 px-5 py-3 justify-between items-center flex">
-                   <Switch />
-                   <Button>
-                     Edit Event
+                   <MenuActiveSwitcher initialCheked={item.active} eventTypeId={item.id} />
+                   <Button asChild>
+                    <Link href={`/dashboard/event/${item.id}`}>Edit Event</Link> 
                    </Button>
                 </div>
             </div>
