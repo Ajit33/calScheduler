@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -28,6 +29,7 @@ import { parseWithZod } from "@conform-to/zod";
 import Link from "next/link";
 import { useState, useEffect, useActionState } from "react";
 import { useFormState } from "react-dom";
+import { GeneralSubmitButton } from "./SubmitButton";
 
 type VideoCallProvider = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
 
@@ -196,8 +198,14 @@ export function EditEventTypeForm({id,title,url,description,duration,callprovide
                 </p>
               )}
             </div>
-            <Button type="submit">Edit Event</Button>
+            
           </CardContent>
+          <CardFooter className="w-full flex justify-between">
+            <Button variant="secondary" asChild>
+              <Link href="/dashboard">Cancel</Link>
+            </Button>
+            <GeneralSubmitButton text="Edit Event Type" />
+          </CardFooter>
         </form>
       </Card>
     </div>

@@ -29,7 +29,7 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import Link from "next/link";
 import { useState, useEffect, useActionState } from "react";
-import { useFormState } from "react-dom";
+
 
 type VideoCallProvider = "Zoom Meeting" | "Google Meet" | "Microsoft Teams";
 
@@ -37,6 +37,7 @@ export default function CreateEvent() {
   const [mounted, setMounted] = useState(false);
   const [activePlatform, setActivePlatform] = useState<VideoCallProvider>("Google Meet");
   const [lastResult, action] = useActionState(CraeteEventTypeAction, undefined);
+  const [isLoading,setIsLoading]=useState(false)
   const [form, fields] = useForm({
     lastResult,
     onValidate({ formData }) {
@@ -183,8 +184,13 @@ export default function CreateEvent() {
                 <p className="text-sm text-red-500">{fields.vedioCallSoftware.errors}</p>
               )}
             </div>
-            <Button type="submit">Create Event</Button>
           </CardContent>
+          <CardFooter className="w-full flex justify-between">
+            <Button variant="secondary" asChild>
+              <Link href="/dashboard">Cancel</Link>
+            </Button>
+            <GeneralSubmitButton text="Create Event Type" />
+          </CardFooter>
         </form>
       </Card>
     </div>
