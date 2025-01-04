@@ -113,7 +113,7 @@ export default async function DashboardPage() {
                 </Link>
                 <div className="bg-gray-300 px-5 py-3 justify-between items-center flex">
                    <MenuActiveSwitcher initialCheked={item.active} eventTypeId={item.id} />
-                   <Button asChild>
+                   <Button asChild >
                     <Link href={`/dashboard/event/${item.id}`}>Edit Event</Link> 
                    </Button>
                 </div>

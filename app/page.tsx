@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import {Navbar} from "./components/Navbar"
+import { Navbar } from "./components/Navbar";
 import { auth } from "./lib/auth";
 import { Hero } from "./components/Hero";
 import { Features } from "./components/Features";

@@ -81,7 +81,7 @@ export default function CreateEvent() {
               )}
             </div>
             <div className="flex flex-col gap-y-2">
-              <Label>Event link</Label>
+              <Label>Event preview link</Label>
               <div className="flex rounded-md">
                 <span className="inline-flex items-center px-3 rounded-l-md border-r-0 border-muted bg-muted text-sm text-muted-foreground">
                   calScheduler.com/
@@ -189,7 +189,9 @@ export default function CreateEvent() {
             <Button variant="secondary" asChild>
               <Link href="/dashboard">Cancel</Link>
             </Button>
+            <div>
             <GeneralSubmitButton text="Create Event Type" />
+            </div>
           </CardFooter>
         </form>
       </Card>
